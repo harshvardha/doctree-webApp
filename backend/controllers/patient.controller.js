@@ -1,4 +1,5 @@
 const Patient = require("../models/patient.models")
+const Doctor = require("../models/doctors.models")
 const { StatusCodes } = require("http-status-code")
 
 const postMedicalData = async (req, res, next) => {

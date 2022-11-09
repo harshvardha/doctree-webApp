@@ -23,7 +23,7 @@ const doctorSchema = new Schema({
         type: String
     },
     registrationNo: {
-        type: Number,
+        type: String,
         required: true
     },
     batchYear: {
@@ -36,6 +36,30 @@ const doctorSchema = new Schema({
     },
     practiceExperience: {
         type: Number,
+        required: true
+    },
+    hospitalName: {
+        type: String,
+        required: true
+    },
+    hospitalTiming: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: Number,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
         required: true
     },
     patients: {

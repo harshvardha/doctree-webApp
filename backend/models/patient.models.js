@@ -15,7 +15,7 @@ const patientSchema = new Schema({
         type: String,
         required: true
     },
-    prescription: [
+    prescriptions: [
         {
             date: {
                 type: Date,
@@ -34,12 +34,11 @@ const patientSchema = new Schema({
                 required: true
             },
             pathologicalInformation: {
-                type: String,
-                required: true
+                type: String
             }
         }
     ],
-    doctor: {
+    doctors: {
         type: [],
         ref: 'doctor'
     }
