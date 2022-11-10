@@ -6,6 +6,7 @@ require("dotenv").config()
 const connectDB = require("./config/dbConnect")
 const authRoutes = require("./routes/auth.routes")
 const doctorRoutes = require("./routes/doctors.routes")
+const patientRoutes = require("./routes/patient.routes")
 const PORT = process.env.PORT || 5000
 
 connectDB()
@@ -19,6 +20,7 @@ app.use(cors({
 
 app.use("/auth", authRoutes)
 app.use("/doctor", doctorRoutes)
+app.use("/patient", patientRoutes)
 
 mongoose.connection.on('open', () => {
     console.log("mongoDB CONNECTED")

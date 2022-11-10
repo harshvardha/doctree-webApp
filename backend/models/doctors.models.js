@@ -61,10 +61,6 @@ const doctorSchema = new Schema({
     state: {
         type: String,
         required: true
-    },
-    patients: {
-        type: [],
-        ref: 'patient'
     }
 })
 

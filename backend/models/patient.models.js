@@ -35,13 +35,14 @@ const patientSchema = new Schema({
             },
             pathologicalInformation: {
                 type: String
+            },
+            doctor: {
+                type: mongoose.Types.ObjectId,
+                required: true,
+                ref: 'doctor'
             }
         }
-    ],
-    doctors: {
-        type: [],
-        ref: 'doctor'
-    }
+    ]
 })
 
 module.exports = mongoose.model("patient", patientSchema)

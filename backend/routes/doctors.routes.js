@@ -14,14 +14,15 @@ doctorRouter.get(
     verifyAccessToken,
     doctorControllers.getPatientData
 )
-doctorRouter.get("/patients", verifyAccessToken, doctorControllers.getPatientsData)
+// doctorRouter.get("/patients", verifyAccessToken, doctorControllers.getPatientsData)
 doctorRouter.post(
-    "/updatePatient",
+    "/addPrescription",
     [
         check("email").normalizeEmail().isEmail()
     ],
     verifyAccessToken,
-    doctorControllers.postPatientData
+    doctorControllers.postCreatePrescription
 )
+doctorRouter.put("/updatePersonalData", verifyAccessToken, doctorControllers.putUpdatePersonalData)
 
 module.exports = doctorRouter
