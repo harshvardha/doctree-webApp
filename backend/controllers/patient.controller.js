@@ -4,67 +4,58 @@ const { StatusCodes } = require("http-status-codes")
 const { validationResult } = require("express-validator")
 const { default: mongoose } = require("mongoose")
 
-const postMedicalData = async (req, res, next) => {
-    try {
-        const patientId = req.userId
-        const { date, disease, symptoms, medicines, pathologicalInformation } = req.body
-        if (!date || !disease || !symptoms || !medicines) {
-            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Please provide all the medical information" })
-        }
-        const patient = await Patient.findById(patientId)
-        const prescription = {
-            date: date,
-            disease: disease,
-            symptoms: symptoms,
-            medicines: medicines,
-            pathologicalInformation: pathologicalInformation ? pathologicalInformation : "NA"
-        }
-        const prescriptions = patient.prescriptions
-        prescriptions.push(prescription)
-        patient.prescriptions = prescriptions
-        patient.save()
-        // prescription = patient.prescriptions[patient.prescription.length - 1]
-        res.status(StatusCodes.CREATED).json({ prescription })
-    } catch (error) {
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
-        console.log(error)
-    }
-}
+// const postMedicalData = async (req, res, next) => {
+//     try {
+//         const patientId = req.userId
+//         const { date, disease, symptoms, medicines, pathologicalInformation } = req.body
+//         if (!date || !disease || !symptoms || !medicines) {
+//             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Please provide all the medical information" })
+//         }
+//         const patient = await Patient.findById(patientId)
+//         const prescription = {
+//             date: date,
+//             disease: disease,
+//             symptoms: symptoms,
+//             medicines: medicines,
+//             pathologicalInformation: pathologicalInformation ? pathologicalInformation : "NA"
+//         }
+//         const prescriptions = patient.prescriptions
+//         prescriptions.push(prescription)
+//         patient.prescriptions = prescriptions
+//         patient.save()
+//         // prescription = patient.prescriptions[patient.prescription.length - 1]
+//         res.status(StatusCodes.CREATED).json({ prescription })
+//     } catch (error) {
+//         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+//         console.log(error)
+//     }
+// }
 
-const putMedicalData = async (req, res, next) => {
-    try {
-        const patientId = req.userId
-        const { prescriptionId, date, disease, symptoms, medicines, pathologicalInformation } = req.body
-        if (!prescriptionId || !date || !disease || !symptoms || !medicines) {
-            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Please provide all the details" })
-        }
-        let patient = await Patient.findById(patientId)
-        //const prescriptionIndex = patient.prescriptions.findIndex(p => p._id.toString() === prescriptionId)
-        //console.log(patient.prescriptions)
-        patient.prescriptions = patient.prescriptions.map(prescription => {
-            if (prescription._id.toString() === prescriptionId) {
-                prescription.date = date
-                prescription.disease = disease
-                prescription.symptoms = symptoms
-                prescription.medicines = medicines
-                prescription.pathologicalInformation = pathologicalInformation ? pathologicalInformation : "NA"
-            }
-            return prescription
-        })
-        // patient.prescriptions[prescriptionIndex] = {
-        //     date: date,
-        //     disease: disease,
-        //     symptoms: symptoms,
-        //     medicines: medicines,
-        //     pathologicalInformation: pathologicalInformation ? pathologicalInformation : ""
-        // }
-        patient.save()
-        res.status(StatusCodes.OK).json({ "prescription": patient.prescriptions })
-    } catch (error) {
-        res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
-        console.log(error)
-    }
-}
+// const putMedicalData = async (req, res, next) => {
+//     try {
+//         const patientId = req.userId
+//         const { prescriptionId, date, disease, symptoms, medicines, pathologicalInformation } = req.body
+//         if (!prescriptionId || !date || !disease || !symptoms || !medicines) {
+//             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Please provide all the details" })
+//         }
+//         let patient = await Patient.findById(patientId)
+//         patient.prescriptions = patient.prescriptions.map(prescription => {
+//             if (prescription._id.toString() === prescriptionId) {
+//                 prescription.date = date
+//                 prescription.disease = disease
+//                 prescription.symptoms = symptoms
+//                 prescription.medicines = medicines
+//                 prescription.pathologicalInformation = pathologicalInformation ? pathologicalInformation : "NA"
+//             }
+//             return prescription
+//         })
+//         patient.save()
+//         res.status(StatusCodes.OK).json({ "prescription": patient.prescriptions })
+//     } catch (error) {
+//         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+//         console.log(error)
+//     }
+// }
 
 const putPersonalData = async (req, res, next) => {
     try {
@@ -107,8 +98,10 @@ const getPrescription = async (req, res, next) => {
     try {
         const patientId = req.userId
         const { prescriptionId } = req.params
+        console.log(patientId)
+        console.log(prescriptionId)
         const patient = await Patient.findById(patientId)
-        const prescription = patient.prescriptions.find(p => p._id === prescriptionId)
+        const prescription = patient.prescriptions.find(p => p._id.toString() === prescriptionId)
         if (!prescription) {
             return res.sendStatus(StatusCodes.NOT_FOUND)
         }
@@ -154,8 +147,6 @@ const getDoctors = async (req, res, next) => {
 }
 
 module.exports = {
-    postMedicalData,
-    putMedicalData,
     putPersonalData,
     getPrescriptions,
     getPrescription,

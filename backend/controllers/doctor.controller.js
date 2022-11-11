@@ -42,13 +42,6 @@ const postCreatePrescription = async (req, res, next) => {
         prescriptions.push(prescription)
         patient.prescriptions = prescriptions
         patient.save()
-        // await Patient.findOneAndUpdate({email: email}, {
-        //     date: date,
-        //     disease: disease,
-        //     symptoms: symptoms,
-        //     medicines: medicines,
-        //     pathologicalInformation: pathologicalInformation ? pathologicalInformation : ""
-        // })
         res.status(StatusCodes.CREATED).json({ patient })
     } catch (error) {
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)

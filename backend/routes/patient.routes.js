@@ -6,8 +6,8 @@ const patientController = require("../controllers/patient.controller")
 
 const patientRouter = express.Router()
 
-patientRouter.post("/medicalData", verifyAccessToken, patientController.postMedicalData)
-patientRouter.put("/medicalData", verifyAccessToken, patientController.putMedicalData)
+// patientRouter.post("/medicalData", verifyAccessToken, patientController.postMedicalData)
+// patientRouter.put("/medicalData", verifyAccessToken, patientController.putMedicalData)
 patientRouter.put(
     "/personalData",
     [
