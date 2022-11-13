@@ -83,10 +83,11 @@ const getPrescriptions = async (req, res, next) => {
     try {
         const patientId = req.userId
         const patient = await Patient.findById(patientId)
-        const prescriptions = patient.prescriptions
+        let prescriptions = patient.prescriptions
         if (!prescriptions) {
             return res.sendStatus(StatusCodes.NOT_FOUND)
         }
+        await patient.populate("prescriptions.doctor")
         res.status(StatusCodes.OK).json({ prescriptions })
     } catch (error) {
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)

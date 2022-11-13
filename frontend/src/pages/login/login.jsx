@@ -1,20 +1,35 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import "./login.css"
+import { useState, useContext } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { authentication } from "../../services/supplier"
+import { DoctreeContext } from "../../context/doctreeContext"
+import "./Login.css"
 
 const Login = () => {
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [role, setRole] = useState("")
+    const navigateTo = useNavigate()
+    const { role, setAccessToken, setRole } = useContext(DoctreeContext)
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault()
-        if (!email || !password || !role) {
+        if (!name || !email || !password || !role) {
             return window.alert("Please enter all the details")
         }
-        console.log(`email: ${email}`)
-        console.log(`password: ${password}`)
-        console.log(`role: ${role}`)
+        const loginDetails = {
+            email,
+            password,
+            role
+        }
+        const response = await authentication.login(loginDetails)
+        setAccessToken(response.data.accessToken)
+        if (role.toLowerCase() === "patient") {
+            setRole("patient")
+        }
+        else if (role.toLowerCase() === "doctor") {
+            setRole("doctor")
+        }
+        navigateTo("/prescriptions")
     }
     return (
         <div className="login">
@@ -23,6 +38,16 @@ const Login = () => {
             </div>
             <form onSubmit={onSubmit}>
                 <div className="login--form">
+                    <div className="login--form--details">
+                        <label htmlFor="name">Name</label>
+                        <input
+                            className="login--form--input"
+                            type="text"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            required
+                        />
+                    </div>
                     <div className="login--form--details">
                         <label htmlFor="email">Email</label>
                         <input

@@ -1,0 +1,21 @@
+.prescriptionCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    column-gap: 5rem;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.card--name {
+    text-align: center;
+}
+
+#viewDetails {
+    text-decoration: none;
+    color: black;
+    border-radius: 20px;
+    background-color: #8BBABB;
+    padding: 10px 30px;
+    font-weight: 600;
+}

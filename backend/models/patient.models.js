@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const Doctor = require("./doctors.models")
 
 const Schema = mongoose.Schema
 

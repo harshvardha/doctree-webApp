@@ -1,0 +1,48 @@
+.prescriptions {
+    width: 100%;
+    height: 100%;
+}
+
+.prescription--nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #8BBABB;
+}
+
+.prescription--nav img {
+    width: 400px;
+}
+
+.prescription--buttons {
+    display: flex;
+    align-items: center;
+}
+
+.prescriptions--prescriptions {
+    padding: 10px 20px;
+}
+
+#search {
+    width: 6.3rem;
+    height: 1.8rem;
+    background-color: #8BBABB;
+}
+
+#searchButton {
+    width: 70px;
+    background-color: #8BBABB;
+}
+
+#profile {
+    width: 6.3rem;
+    height: 1.8rem;
+    color: black;
+}
+
+#logoutIcon {
+    text-decoration: none;
+    color: black;
+    margin-right: 50px;
+    font-size: 2.1rem;
+}
