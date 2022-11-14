@@ -16,7 +16,7 @@ function App() {
             <Route index element={<Prescriptions />} />
             <Route path=":prescriptionId" element={<PrescriptionDetails />} />
           </Route>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:userId" element={<Profile />} />
         </Routes>
       </div>
     </BrowserRouter>

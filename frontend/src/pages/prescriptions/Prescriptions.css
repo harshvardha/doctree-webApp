@@ -43,6 +43,9 @@
 #logoutIcon {
     text-decoration: none;
     color: black;
-    margin-right: 50px;
     font-size: 2.1rem;
+}
+
+#logoutButton {
+    background-color: #8BBABB;
 }

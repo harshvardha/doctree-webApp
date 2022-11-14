@@ -36,7 +36,7 @@ const postCreatePrescription = async (req, res, next) => {
             disease: disease,
             symptoms: symptoms,
             medicines: medicines,
-            pathologicalInformation: pathologicalInformation ? pathologicalInformation : "",
+            pathologicalInformation: pathologicalInformation ? pathologicalInformation : "NA",
             doctor: ObjectId(doctorId)
         }
         prescriptions.push(prescription)

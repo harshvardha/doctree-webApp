@@ -4,19 +4,15 @@ import React from "react";
 const DoctreeContext = React.createContext()
 
 const DoctreeProvider = ({ children }) => {
-    const [accessToken, setAccessToken] = useState("")
-    const [role, setRole] = useState("")
-    const [prescriptions, setPrescriptions] = useState([])
+    // const [accessToken, setAccessToken] = useState("")
+    // const [role, setRole] = useState("")
+    const [user, setUser] = useState()
 
     return (
         <DoctreeContext.Provider
             value={{
-                prescriptions,
-                role,
-                accessToken,
-                setAccessToken,
-                setRole,
-                setPrescriptions
+                user,
+                setUser
             }}
         >
             {children}

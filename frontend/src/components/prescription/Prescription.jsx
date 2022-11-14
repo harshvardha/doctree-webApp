@@ -1,10 +1,7 @@
-import { useContext } from "react"
-import { DoctreeContext } from "../../context/doctreeContext"
 import { Link } from "react-router-dom"
 import "./Prescription.css"
 
-const Prescription = ({ id, name, disease, medicines }) => {
-    const { role } = useContext(DoctreeContext)
+const Prescription = ({ id, role, name, disease, medicines }) => {
     return (
         <div className="prescriptionCard">
             <div className="card--name">

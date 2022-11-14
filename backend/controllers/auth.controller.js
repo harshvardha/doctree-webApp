@@ -131,7 +131,7 @@ const postLoginUser = async (req, res, next) => {
         )
         user.accessToken = accessToken,
             user.save()
-        res.status(StatusCodes.OK).json({ accessToken })
+        res.status(StatusCodes.OK).json({ user, accessToken })
     } catch (error) {
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
         console.log(error)

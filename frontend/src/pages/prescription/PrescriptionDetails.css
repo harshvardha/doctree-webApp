@@ -43,3 +43,13 @@
     width: 92rem;
     flex-wrap: wrap;
 }
+
+#logoutIcon {
+    text-decoration: none;
+    color: black;
+    font-size: 2.1rem;
+}
+
+#logoutButton {
+    background-color: #8BBABB;
+}

@@ -1,15 +1,16 @@
 import { useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { authentication } from "../../services/supplier"
 import { DoctreeContext } from "../../context/doctreeContext"
+import { authentication } from "../../services/supplier"
 import "./Login.css"
 
 const Login = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [role, setRole] = useState("")
     const navigateTo = useNavigate()
-    const { role, setAccessToken, setRole } = useContext(DoctreeContext)
+    const { setUser } = useContext(DoctreeContext)
 
     const onSubmit = async (event) => {
         event.preventDefault()
@@ -22,7 +23,9 @@ const Login = () => {
             role
         }
         const response = await authentication.login(loginDetails)
-        setAccessToken(response.data.accessToken)
+        localStorage.setItem("ACCESS_TOKEN", response.data.accessToken)
+        localStorage.setItem("ROLE", role.toLowerCase())
+        setUser(response.data.user)
         if (role.toLowerCase() === "patient") {
             setRole("patient")
         }

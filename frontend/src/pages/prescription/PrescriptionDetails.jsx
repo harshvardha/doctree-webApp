@@ -1,59 +1,75 @@
-import { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useState, useEffect, useContext } from "react"
 import { DoctreeContext } from "../../context/doctreeContext"
+import { Link, useNavigate } from "react-router-dom"
+import { patientRequests } from "../../services/supplier"
+import { useParams } from "react-router-dom"
 import { CgProfile } from "react-icons/cg"
+import { BiLogOutCircle } from "react-icons/bi"
 import logo from "../../images/logo.png"
 import "./PrescriptionDetails.css"
 
 const PrescriptionDetails = () => {
-    const [prescription, setPrescription] = useState({})
     const params = useParams()
-    const { role, prescriptions } = useContext(DoctreeContext)
+    const { user } = useContext(DoctreeContext)
+    const [patientName, setPatientName] = useState("")
+    const [prescription, setPrescription] = useState()
+    const [role, setRole] = useState(localStorage.getItem("ROLE"))
+    const navigateTo = useNavigate()
+
+    const logout = () => {
+        localStorage.removeItem("ACCESS_TOKEN")
+        localStorage.removeItem("ROLE")
+        navigateTo("/")
+    }
 
     useEffect(() => {
-        setPrescription(prescriptions.find(p => {
-            console.log(p._id)
-            console.log(params.prescriptionId)
-            // p._id === params.prescriptionId
-        }), [])
-    })
+        const getData = async () => {
+            const accessToken = localStorage.getItem("ACCESS_TOKEN")
+            const prescriptionId = params.prescriptionId
+            const response = await patientRequests.getPrescription(accessToken, prescriptionId)
+            setPrescription(response.data.prescription)
+            setPatientName(response.data.name)
+        }
+        getData()
+    }, [])
 
     return (
         <div className="prescriptionDetail">
             <div className="prescriptionDetail--nav">
                 <img src={logo} alt="logo" />
-                <button type="button" onClick={() => console.log("clicked")} id="profileButton"><CgProfile id="profileIcon" /></button>
+                <Link to={`/profile/${user._id}`} id="profileButton"><CgProfile id="profileIcon" /></Link>
+                <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
             </div>
             <div className="prescriptionDetail--details">
                 <div className="prescription--detail">
                     {role === "patient" && <h3>Name</h3>}
                     {role === "doctor" && <h3>Patient Name</h3>}
-                    <p>{prescription.name}</p>
+                    <p>{patientName}</p>
                 </div>
                 <div className="prescription--detail">
                     <h3>Date</h3>
-                    <p>{prescription.date}</p>
+                    <p>{prescription ? (prescription.date ? new Date(prescription.date).toDateString() : "") : ""}</p>
                 </div>
                 <div className="prescription--detail">
                     <h3>Symptoms</h3>
-                    <p>{prescription.symptoms}</p>
+                    <p>{prescription ? (prescription.symptoms ? prescription.symptoms : "") : ""}</p>
                 </div>
                 <div className="prescription--detail">
                     <h3>Disease</h3>
-                    <p>{prescription.disease}</p>
+                    <p>{prescription ? (prescription.disease ? prescription.disease : "") : ""}</p>
                 </div>
                 <div className="prescription--detail">
                     <h3>Medicines</h3>
-                    <p>{prescription.medicines}</p>
+                    <p>{prescription ? (prescription.medicines ? prescription.medicines : "") : ""}</p>
                 </div>
                 <div className="prescription--detail">
                     <h3>Pathological Information</h3>
-                    <p>{prescription.pathologicalInformation}</p>
+                    <p>{prescription ? (prescription.pathologicalInformation ? prescription.pathologicalInformation : "") : ""}</p>
                 </div>
                 {role === "patient" &&
                     <div className="prescription--detail">
                         <h3>Doctor Name</h3>
-                        <p>{prescription.doctor.name}</p>
+                        <p>{prescription ? (prescription.doctor.name ? prescription.doctor.name : "") : ""}</p>
                     </div>
                 }
             </div>
