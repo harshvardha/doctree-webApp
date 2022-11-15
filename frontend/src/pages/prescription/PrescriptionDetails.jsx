@@ -44,48 +44,51 @@ const PrescriptionDetails = () => {
     }, [patient])
 
     return (
-        <div className="prescriptionDetail">
-            <div className="prescriptionDetail--nav">
-                <img src={logo} alt="logo" />
-                <div className="prescription--nav--button">
-                    <Link to={`/profile/${user?._id}`} ><CgProfile id="profileIcon" /></Link>
-                    <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
-                </div>
-            </div>
-            <div className="prescriptionDetail--details">
-                <div className="prescription--detail">
-                    {role === "patient" && <h3>Name</h3>}
-                    {role === "doctor" && <h3>Patient Name</h3>}
-                    <p>{patientName}</p>
-                </div>
-                <div className="prescription--detail">
-                    <h3>Date</h3>
-                    <p>{prescription ? (prescription.date ? new Date(prescription.date).toDateString() : "") : ""}</p>
-                </div>
-                <div className="prescription--detail">
-                    <h3>Symptoms</h3>
-                    <p>{prescription ? (prescription.symptoms ? prescription.symptoms : "") : ""}</p>
-                </div>
-                <div className="prescription--detail">
-                    <h3>Disease</h3>
-                    <p>{prescription ? (prescription.disease ? prescription.disease : "") : ""}</p>
-                </div>
-                <div className="prescription--detail">
-                    <h3>Medicines</h3>
-                    <p>{prescription ? (prescription.medicines ? prescription.medicines : "") : ""}</p>
-                </div>
-                <div className="prescription--detail">
-                    <h3>Pathological Information</h3>
-                    <p>{prescription ? (prescription.pathologicalInformation ? prescription.pathologicalInformation : "") : ""}</p>
-                </div>
-                {role === "patient" &&
-                    <div className="prescription--detail">
-                        <h3>Doctor Name</h3>
-                        <p>{prescription ? (prescription.doctor.name ? prescription.doctor.name : "") : ""}</p>
+        <>
+            {role &&
+                <div className="prescriptionDetail">
+                    <div className="prescriptionDetail--nav">
+                        <img src={logo} alt="logo" />
+                        <div className="prescription--nav--button">
+                            <Link to={`/profile/${user?._id}`} ><CgProfile id="profileIcon" /></Link>
+                            <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
+                        </div>
                     </div>
-                }
-            </div>
-        </div>
+                    <div className="prescriptionDetail--details">
+                        <div className="prescription--detail">
+                            {role === "patient" && <h3>Name</h3>}
+                            {role === "doctor" && <h3>Patient Name</h3>}
+                            <p>{patientName}</p>
+                        </div>
+                        <div className="prescription--detail">
+                            <h3>Date</h3>
+                            <p>{prescription ? (prescription.date ? new Date(prescription.date).toDateString() : "") : ""}</p>
+                        </div>
+                        <div className="prescription--detail">
+                            <h3>Symptoms</h3>
+                            <p>{prescription ? (prescription.symptoms ? prescription.symptoms : "") : ""}</p>
+                        </div>
+                        <div className="prescription--detail">
+                            <h3>Disease</h3>
+                            <p>{prescription ? (prescription.disease ? prescription.disease : "") : ""}</p>
+                        </div>
+                        <div className="prescription--detail">
+                            <h3>Medicines</h3>
+                            <p>{prescription ? (prescription.medicines ? prescription.medicines : "") : ""}</p>
+                        </div>
+                        <div className="prescription--detail">
+                            <h3>Pathological Information</h3>
+                            <p>{prescription ? (prescription.pathologicalInformation ? prescription.pathologicalInformation : "") : ""}</p>
+                        </div>
+                        {role === "patient" &&
+                            <div className="prescription--detail">
+                                <h3>Doctor Name</h3>
+                                <p>{prescription ? (prescription.doctor.name ? prescription.doctor.name : "") : ""}</p>
+                            </div>
+                        }
+                    </div>
+                </div>}
+        </>
     )
 }
 

@@ -105,162 +105,166 @@ const Profile = () => {
     }, [])
 
     return (
-        <div className="profile">
-            <div className="profile--nav">
-                <img src={logo} alt="logo" />
-                <Link to={"/"} id="profileLink"><CgProfile id="profileIcon" /></Link>
-                <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
-            </div>
-            <form onSubmit={updatePersonaInformation}>
-                <div className="profile--details">
-                    <div className="profile--detail">
-                        <h3>Name</h3>
-                        <input
-                            className="profile--input"
-                            type="text"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                            required
-                        />
+        <>
+            {role &&
+                <div className="profile">
+                    <div className="profile--nav">
+                        <img src={logo} alt="logo" />
+                        <Link to={"/"} id="profileLink"><CgProfile id="profileIcon" /></Link>
+                        <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
                     </div>
-                    <div className="profile--detail">
-                        <h3>Email</h3>
-                        <input
-                            className="profile--input"
-                            type="text"
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                            required
-                        />
-                    </div>
-                    {role === "doctor" &&
-                        <>
+                    <form onSubmit={updatePersonaInformation}>
+                        <div className="profile--details">
                             <div className="profile--detail">
-                                <h3>Qualification</h3>
+                                <h3>Name</h3>
                                 <input
                                     className="profile--input"
                                     type="text"
-                                    value={qualification}
-                                    onChange={(event) => setQualification(event.target.value)}
+                                    value={name}
+                                    onChange={(event) => setName(event.target.value)}
                                     required
                                 />
                             </div>
                             <div className="profile--detail">
-                                <h3>Specialization</h3>
+                                <h3>Email</h3>
                                 <input
                                     className="profile--input"
                                     type="text"
-                                    value={speciality}
-                                    onChange={(event) => setSpeciality(event.target.value)}
+                                    value={email}
+                                    onChange={(event) => setEmail(event.target.value)}
                                     required
                                 />
                             </div>
-                            <div className="profile--detail">
-                                <h3>Registration No.</h3>
-                                <input
-                                    className="profile--input"
-                                    type="text"
-                                    value={registrationNo}
-                                    onChange={(event) => setRegistrationNo(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>Batch Year</h3>
-                                <input
-                                    className="profile--input"
-                                    type="number"
-                                    value={batchYear}
-                                    onChange={(event) => setBatchYear(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>College</h3>
-                                <input
-                                    className="profile--input"
-                                    type="text"
-                                    value={college}
-                                    onChange={(event) => setCollege(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>Practice Experience</h3>
-                                <input
-                                    className="profile--input"
-                                    type="number"
-                                    value={practiceExperience}
-                                    onChange={(event) => setPracticeExperience(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>Hospital Name</h3>
-                                <input
-                                    className="profile--input"
-                                    type="text"
-                                    value={hospitalName}
-                                    onChange={(event) => setHospitalName(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>Hospital Timing</h3>
-                                <input
-                                    className="profile--input"
-                                    type="text"
-                                    value={hospitalTiming}
-                                    onChange={(event) => setHospitalTiming(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>Pincode</h3>
-                                <input
-                                    className="profile--input"
-                                    type="number"
-                                    value={pincode}
-                                    onChange={(event) => setPincode(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>Address</h3>
-                                <input
-                                    className="profile--input"
-                                    type="text"
-                                    value={address}
-                                    onChange={(event) => setAddress(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>City</h3>
-                                <input
-                                    className="profile--input"
-                                    type="text"
-                                    value={city}
-                                    onChange={(event) => setCity(event.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="profile--detail">
-                                <h3>State</h3>
-                                <input
-                                    className="profile--input"
-                                    type="text"
-                                    value={state}
-                                    onChange={(event) => setState(event.target.value)}
-                                    required
-                                />
-                            </div>
-                        </>
-                    }
-                    <button type="submit" id="updateButton">Update</button>
+                            {role === "doctor" &&
+                                <>
+                                    <div className="profile--detail">
+                                        <h3>Qualification</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={qualification}
+                                            onChange={(event) => setQualification(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Specialization</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={speciality}
+                                            onChange={(event) => setSpeciality(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Registration No.</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={registrationNo}
+                                            onChange={(event) => setRegistrationNo(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Batch Year</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="number"
+                                            value={batchYear}
+                                            onChange={(event) => setBatchYear(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>College</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={college}
+                                            onChange={(event) => setCollege(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Practice Experience</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="number"
+                                            value={practiceExperience}
+                                            onChange={(event) => setPracticeExperience(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Hospital Name</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={hospitalName}
+                                            onChange={(event) => setHospitalName(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Hospital Timing</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={hospitalTiming}
+                                            onChange={(event) => setHospitalTiming(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Pincode</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="number"
+                                            value={pincode}
+                                            onChange={(event) => setPincode(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>Address</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={address}
+                                            onChange={(event) => setAddress(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>City</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={city}
+                                            onChange={(event) => setCity(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="profile--detail">
+                                        <h3>State</h3>
+                                        <input
+                                            className="profile--input"
+                                            type="text"
+                                            value={state}
+                                            onChange={(event) => setState(event.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </>
+                            }
+                            <button type="submit" id="updateButton">Update</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
+            }
+        </>
     )
 }
 

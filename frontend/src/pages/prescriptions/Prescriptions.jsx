@@ -64,22 +64,26 @@ const Prescriptions = () => {
     }, [patient])
 
     return (
-        <div className="prescriptions">
-            {openAddPrescription && <AddPrescriptionModal setOpen={setOpenAddPrescription} />}
-            {openSearch && <SearchModal setOpen={setOpenSearch} />}
-            <div className="prescription--nav">
-                <img src={logo} alt="logo" />
-                <div className="prescription--buttons">
-                    {role === "doctor" && <button type="button" onClick={() => setOpenSearch(true)} id="searchButton"><FiSearch id="search" /></button>}
-                    <Link to={`/profile/${user?._id}`}><CgProfile id="profile" /></Link>
-                    <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
+        <>
+            {role && (
+                <div className="prescriptions">
+                    {openAddPrescription && <AddPrescriptionModal setOpen={setOpenAddPrescription} />}
+                    {openSearch && <SearchModal setOpen={setOpenSearch} />}
+                    <div className="prescription--nav">
+                        <img src={logo} alt="logo" />
+                        <div className="prescription--buttons">
+                            {role === "doctor" && <button type="button" onClick={() => setOpenSearch(true)} id="searchButton"><FiSearch id="search" /></button>}
+                            <Link to={`/profile/${user?._id}`}><CgProfile id="profile" /></Link>
+                            <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
+                        </div>
+                    </div>
+                    <div className="prescriptions--prescriptions">
+                        {prescriptionComponents}
+                        {(role === "doctor" && patient) && <button type="button" id="addPrescriptionButton" onClick={() => setOpenAddPrescription(true)}>Add Prescription</button>}
+                    </div>
                 </div>
-            </div>
-            <div className="prescriptions--prescriptions">
-                {prescriptionComponents}
-                {(role === "doctor" && patient) && <button type="button" id="addPrescriptionButton" onClick={() => setOpenAddPrescription(true)}>Add Prescription</button>}
-            </div>
-        </div>
+            )}
+        </>
     )
 }
 
