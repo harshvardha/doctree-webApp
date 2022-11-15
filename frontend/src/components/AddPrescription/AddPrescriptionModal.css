@@ -1,0 +1,85 @@
+.overlay {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.addPrescriptionModal {
+    background-color: white;
+    border-radius: 20px;
+}
+
+.addPrescriptionModal--title {
+    background-color: #8BBABB;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.addPrescriptionModal--title h1 {
+    margin-left: 50px;
+}
+
+#closeModalButton {
+    background-color: #8BBABB;
+}
+
+#closeModalIcon {
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+.addPrescription--form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.addPrescription--formDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.addPrescription--inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.addPrescription--inputs label {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.addPrescription--input {
+    font-size: 0.93rem;
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 23rem;
+    padding: 0.5rem 1rem;
+}
+
+.addPrescription--textarea {
+    height: 8rem;
+}
+
+#addPrescriptionButton {
+    font-family: "poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.4rem 2rem;
+    background-color: #8BBABB;
+    border-radius: 20px;
+}

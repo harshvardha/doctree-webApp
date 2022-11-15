@@ -10,7 +10,7 @@ import "./PrescriptionDetails.css"
 
 const PrescriptionDetails = () => {
     const params = useParams()
-    const { user } = useContext(DoctreeContext)
+    const { user, patient, setUser, setPatient } = useContext(DoctreeContext)
     const [patientName, setPatientName] = useState("")
     const [prescription, setPrescription] = useState()
     const [role, setRole] = useState(localStorage.getItem("ROLE"))
@@ -19,6 +19,8 @@ const PrescriptionDetails = () => {
     const logout = () => {
         localStorage.removeItem("ACCESS_TOKEN")
         localStorage.removeItem("ROLE")
+        setPatient(null)
+        setUser(null)
         navigateTo("/")
     }
 
@@ -30,15 +32,25 @@ const PrescriptionDetails = () => {
             setPrescription(response.data.prescription)
             setPatientName(response.data.name)
         }
-        getData()
-    }, [])
+        if (role === "patient") {
+            getData()
+        }
+        else if (role === "doctor" && patient) {
+            const prescriptionId = params.prescriptionId
+            const prescription = patient.prescriptions.find(prescription => prescription._id === prescriptionId)
+            setPatientName(patient.name)
+            setPrescription(prescription)
+        }
+    }, [patient])
 
     return (
         <div className="prescriptionDetail">
             <div className="prescriptionDetail--nav">
                 <img src={logo} alt="logo" />
-                <Link to={`/profile/${user._id}`} id="profileButton"><CgProfile id="profileIcon" /></Link>
-                <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
+                <div className="prescription--nav--button">
+                    <Link to={`/profile/${user?._id}`} ><CgProfile id="profileIcon" /></Link>
+                    <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
+                </div>
             </div>
             <div className="prescriptionDetail--details">
                 <div className="prescription--detail">

@@ -5,6 +5,9 @@
     column-gap: 5rem;
     border: 1px solid black;
     border-radius: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .card--name {

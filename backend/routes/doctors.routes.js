@@ -14,7 +14,7 @@ doctorRouter.get(
     verifyAccessToken,
     doctorControllers.getPatientData
 )
-// doctorRouter.get("/patients", verifyAccessToken, doctorControllers.getPatientsData)
+// doctorRouter.get("/prescriptionById", verifyAccessToken, doctorControllers.getPrescriptionById)
 doctorRouter.post(
     "/addPrescription",
     [

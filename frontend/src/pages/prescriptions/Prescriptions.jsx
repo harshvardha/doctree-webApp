@@ -9,17 +9,21 @@ import "./Prescriptions.css"
 import logo from "../../images/logo.png"
 import { patientRequests } from "../../services/supplier"
 import { DoctreeContext } from "../../context/doctreeContext"
+import AddPrescriptionModal from "../../components/AddPrescription/AddPrescriptionModal"
 
 const Prescriptions = () => {
-    const [open, setOpen] = useState(false)
+    const [openSearch, setOpenSearch] = useState(false)
+    const [openAddPrescription, setOpenAddPrescription] = useState(false)
     const [prescriptionComponents, setPrescriptionComponents] = useState([])
     const [role, setRole] = useState(localStorage.getItem("ROLE"))
-    const { user } = useContext(DoctreeContext)
+    const { user, patient, setPatient, setUser } = useContext(DoctreeContext)
     const navigateTo = useNavigate()
 
     const logout = (event) => {
         localStorage.removeItem("ACCESS_TOKEN")
         localStorage.removeItem("ROLE")
+        setPatient(null)
+        setUser(null)
         navigateTo("/")
     }
 
@@ -45,22 +49,36 @@ const Prescriptions = () => {
         if (role === "patient") {
             getData()
         }
-    }, [])
+        else if (role === "doctor" && patient) {
+            const patientName = patient.name
+            const prescriptions = patient.prescriptions
+            setPrescriptionComponents(prescriptions.map(prescription => <Prescription
+                key={prescription._id}
+                id={prescription._id}
+                role={role}
+                name={patientName}
+                disease={prescription.disease}
+                medicines={prescription.medicines}
+            />))
+        }
+    }, [patient])
 
     return (
         <div className="prescriptions">
+            {openAddPrescription && <AddPrescriptionModal setOpen={setOpenAddPrescription} />}
+            {openSearch && <SearchModal setOpen={setOpenSearch} />}
             <div className="prescription--nav">
                 <img src={logo} alt="logo" />
                 <div className="prescription--buttons">
-                    {role === "doctor" && <button type="button" onClick={() => setOpen(true)} id="searchButton"><FiSearch id="search" /></button>}
-                    <Link to={`/profile/${user._id}`}><CgProfile id="profile" /></Link>
+                    {role === "doctor" && <button type="button" onClick={() => setOpenSearch(true)} id="searchButton"><FiSearch id="search" /></button>}
+                    <Link to={`/profile/${user?._id}`}><CgProfile id="profile" /></Link>
                     <button type="button" onClick={logout} id="logoutButton"><BiLogOutCircle id="logoutIcon" /></button>
                 </div>
             </div>
             <div className="prescriptions--prescriptions">
                 {prescriptionComponents}
+                {(role === "doctor" && patient) && <button type="button" id="addPrescriptionButton" onClick={() => setOpenAddPrescription(true)}>Add Prescription</button>}
             </div>
-            {open && <SearchModal setOpen={setOpen} />}
         </div>
     )
 }

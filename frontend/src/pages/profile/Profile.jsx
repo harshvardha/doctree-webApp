@@ -25,7 +25,7 @@ const Profile = () => {
     const [state, setState] = useState("")
     const [role, setRole] = useState(localStorage.getItem("ROLE"))
     const [accessToken, setAccessToken] = useState(localStorage.getItem("ACCESS_TOKEN"))
-    const { user } = useContext(DoctreeContext)
+    const { user, setUser, setPatient } = useContext(DoctreeContext)
     const navigateTo = useNavigate()
 
     const updatePersonaInformation = async (event) => {
@@ -80,6 +80,8 @@ const Profile = () => {
     const logout = () => {
         localStorage.removeItem("ACCESS_TOKEN")
         localStorage.removeItem("ROLE")
+        setUser(null)
+        setPatient(null)
         navigateTo("/")
     }
 

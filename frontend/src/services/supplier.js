@@ -30,7 +30,7 @@ export const patientRequests = {
 export const doctorRequests = {
     getPatient: (accessToken, email) => {
         api.defaults.headers.common["authorization"] = "Bearer " + accessToken
-        return api.get(`${baseUrl}/doctor/patient`, { email })
+        return api.get(`${baseUrl}/doctor/patient?email=${email}`)
     },
     addPrescription: (accessToken, prescriptionDetails) => {
         api.defaults.headers.common["authorization"] = "Bearer " + accessToken

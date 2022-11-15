@@ -31,6 +31,7 @@ const postCreatePrescription = async (req, res, next) => {
         }
         const patient = await Patient.findOne({ email: email })
         const prescriptions = patient.prescriptions
+        console.log(date)
         const prescription = {
             date: date,
             disease: disease,
@@ -175,11 +176,13 @@ const getPrescriptionPDF = async (req, res, next) => {
 const getPatientData = async (req, res, next) => {
     try {
         const errors = validationResult(req)
+        console.log(errors)
         if (!errors.isEmpty()) {
             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Please provide correct email" })
         }
-        const { email } = req.body
+        const { email } = req.query
         const patient = await Patient.findOne({ email: email })
+        patient.populate("prescriptions.doctor")
         if (!patient) {
             return res.sendStatus(StatusCodes.NOT_FOUND)
         }
@@ -189,6 +192,24 @@ const getPatientData = async (req, res, next) => {
         console.log(error)
     }
 }
+
+// const getPrescriptionById = async (req, res, next) => {
+//     try {
+//         const { patientId, prescriptionId } = req.body
+//         if (!patientId || !prescriptionId) {
+//             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: "Please provide all the required details" })
+//         }
+//         const patient = await Patient.findById(patientId)
+//         const prescription = patient.prescriptions.find(prescription => prescription._id.toString() === prescriptionId)
+//         if (!prescription) {
+//             return res.sendStatus(StatusCodes.NOT_FOUND)
+//         }
+//         res.status(StatusCodes.OK).json({ name: patient.name, prescription })
+//     } catch (error) {
+//         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+//         console.log(error)
+//     }
+// }
 
 module.exports = {
     postCreatePrescription,

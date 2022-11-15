@@ -10,14 +10,19 @@
     align-items: center;
 }
 
-#profileIcon {
-    font-size: 2rem;
-    background-color: #8BBABB;
+.prescription--nav--button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    margin-right: 25px;
 }
 
-#profileButton {
+#profileIcon {
+    color: black;
+    font-size: 2rem;
+    margin-top: 3px;
     background-color: #8BBABB;
-    margin-right: 2rem;
 }
 
 .prescriptionDetail--nav img {
@@ -42,14 +47,4 @@
     border-radius: 20px;
     width: 92rem;
     flex-wrap: wrap;
-}
-
-#logoutIcon {
-    text-decoration: none;
-    color: black;
-    font-size: 2.1rem;
-}
-
-#logoutButton {
-    background-color: #8BBABB;
 }
